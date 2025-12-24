@@ -1,9 +1,9 @@
 function NavBar({name, scrollRefs}) {
     return (
-        <nav style={{left: '0', display: 'flex', width: '100%', justifyContent: 'space-evenly', position: 'fixed', top: '0', backgroundColor: 'Black'}}>
-            <div>
+        <nav style={{left: '0', display: 'flex', width: '100%', justifyContent: 'space-evenly', position: 'fixed', top: '0', backgroundColor: 'Black', zIndex:'1000', alignItems: 'center'}}>
+            <p>
                 {name}
-            </div>
+            </p>
             <button onClick={() => scrollRefs.about.current?.scrollIntoView()}>
                 About
             </button>

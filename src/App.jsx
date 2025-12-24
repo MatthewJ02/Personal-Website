@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import './App.css'
 
 import NavBar from './components/NavBar.jsx'
+import ProjectCard from './components/ProjectCard.jsx'
 
 function App() {
 
@@ -52,19 +53,36 @@ function App() {
       <NavBar name={"Matthew Johnson"} scrollRefs={scrollRefs}>
       </NavBar>
       <section ref={aboutRef}>
-        <h1>Matthew Johnson</h1>
-        <p>Add picture</p>
-        <p>Desc about me here</p>
+        <h1>About</h1>
+        {/* Temp styling for testing*/}
+        <div style={{display: 'flex', justifyContent: 'space-evenly', gap: '50px'}}>
+          <p style={{width: '200px', height: '200px', backgroundColor: 'Black'}}>Add picture</p>
+          <p style={{width: '600px', height: '200px', backgroundColor: 'Black'}}>Desc about me here</p>
+        </div>
       </section>   
       <section ref={projectRef}>
         <h1>Projects</h1>
-        <p>Airplane Satisfaction Model (include link)</p>
-        <p>F1 Database (include link)</p>
+        <div className='section-content'>
+          <ProjectCard name={"Portfolio Website"}/>
+          <ProjectCard name={"Airplane Passenger Satisfaction Model"}/>
+          <ProjectCard name={"F1 Driver Database"}/>
+        </div>
       </section>
       <section ref={expRef}>
         <h1>Experience</h1>
-        <p>Apple - Apple Support College Program Advisor</p>
-        <p>Job description, dates, etc.</p>
+        <div className='experience-card'>
+          <h2>Apple Support College Program Advisor</h2>
+          <div className='experience-line'> 
+            <p>Apple</p>
+            <p>May 2025 - Present</p>
+          </div>
+          <p>Job Description</p>
+          <div className="project-skills">
+            <div className="skill">Skill</div>
+            <div className="skill">Skill</div>
+            <div className="skill">Skill</div>
+          </div>
+        </div>
       </section>
       <section ref={eduRef}>
         <h1>Education</h1>
