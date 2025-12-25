@@ -1,4 +1,4 @@
-//import { useState } from 'react'
+import { useState } from 'react'
 import { useRef } from 'react'
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
@@ -24,7 +24,18 @@ function App() {
     skill: skillRef,
     contact: contactRef
   }
+
+  const [expandedProj, setExpandedProj] = useState(null);
   
+  const handleExpand = (id) => {
+    setExpandedProj(expandedProj === id ? null : id);
+  }
+
+  const projects = [
+    {id: 1, name: 'Airplane Passenger Satisfaction Model'},
+    {id: 2, name: 'F1 Driver Database'},
+    {id: 3, name: 'Portfolio Website'}
+  ]
 
   return (
     <>
@@ -63,9 +74,9 @@ function App() {
       <section ref={projectRef}>
         <h1>Projects</h1>
         <div className='section-content'>
-          <ProjectCard name={"Portfolio Website"}/>
-          <ProjectCard name={"Airplane Passenger Satisfaction Model"}/>
-          <ProjectCard name={"F1 Driver Database"}/>
+          {projects.map((project) => (
+            <ProjectCard key={project.id} name={project.name} width={expandedProj === project.id ? '1000px' : expandedProj === null ? '300px' : '0px'} height={expandedProj === project.id ? '500px' : '400px'} onClick={() => handleExpand(project.id)}/>
+          ))}
         </div>
       </section>
       <section ref={expRef}>
@@ -86,9 +97,15 @@ function App() {
       </section>
       <section ref={eduRef}>
         <h1>Education</h1>
-        <p>UT Austin</p>
-        <p>Coursework</p>
-        <p>Campus Involvement</p>
+        <div className='experience-card'>
+          <h2>B.S. Computer Science</h2>
+          <div className='experience-line'> 
+            <p>The University of Texas at Austin</p>
+            <p>Aug 2024 - May 2028</p>
+          </div>
+          <p>Courses</p>
+          <p>Organizations</p>
+        </div>
       </section>
       <section ref={skillRef}>
         <h1>Skills & Certifications</h1>
