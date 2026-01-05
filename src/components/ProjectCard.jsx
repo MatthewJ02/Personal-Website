@@ -1,4 +1,4 @@
-function ProjectCard({name, width, height, onClick}) {
+function ProjectCard({name, width, height, onClick, skills}) {
     return (
         <div className="project-card" onClick={onClick} 
         style={{width: width, height: height, transition: '0.3s ease', overflow: 'hidden', opacity: width === '0px' ? '0' : '1', whiteSpace: 'nowrap', flexShrink: '0'}}>
@@ -6,9 +6,9 @@ function ProjectCard({name, width, height, onClick}) {
             <p>Desc</p>
             <a href="https://github.com/MatthewJ02" target="_blank">Source Code</a>
             <div className="project-skills">
-                <div className="skill">Skill</div>
-                <div className="skill">Skill</div>
-                <div className="skill">Skill</div>
+                {skills.map((skill) => (
+                   <div className="skill">{skill}</div>
+                ))}
             </div>
         </div>
     )

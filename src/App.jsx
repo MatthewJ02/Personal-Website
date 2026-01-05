@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 import './App.css'
@@ -25,6 +24,34 @@ function App() {
     contact: contactRef
   }
 
+  // Highlight current section in nav bar
+  const [activeSection, setActiveSection] = useState(null);
+  const observer = useRef(null);
+
+  useEffect(()  => {
+    observer.current = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      })
+    }, {threshold: 0,
+      rootMargin: '-25% 0px -75% 0px'
+    });
+
+    const sections = document.querySelectorAll('section');
+
+    sections.forEach((section) => {
+      observer.current.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        observer.current.unobserve(section);
+      });
+    };
+  }, []);
+
   const [expandedProj, setExpandedProj] = useState(null);
   
   const handleExpand = (id) => {
@@ -32,38 +59,21 @@ function App() {
   }
 
   const projects = [
-    {id: 1, name: 'Airplane Passenger Satisfaction Model'},
-    {id: 2, name: 'F1 Driver Database'},
-    {id: 3, name: 'Portfolio Website'}
+    {id: 1, name: 'Airplane Passenger Satisfaction Model', skills: ['Python', 'PyTorch', 'SageMaker', 'Jupyter']},
+    {id: 2, name: 'F1 Driver Database', skills: ['HTML', 'CSS', 'JavaScript', 'React', 'SQL', 'Node.js', 'Express.js']},
+    {id: 3, name: 'Portfolio Website', skills: ['HTML', 'CSS', 'JavaScript', 'React']}
   ]
+
+  //project v2 state
+  const [activeButton, setActiveButton] = useState(1);
+  const activeProj = projects.find(project => project.id === activeButton);
 
   return (
     <>
-      {/*<div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>*/}
-
       {/* Bare bones layout test */}
-      <NavBar name={"Matthew Johnson"} scrollRefs={scrollRefs}>
+      <NavBar name={"Matthew Johnson"} scrollRefs={scrollRefs} activeSection={activeSection}>
       </NavBar>
-      <section ref={aboutRef}>
+      <section id='about' ref={aboutRef}>
         <h1>About</h1>
         {/* Temp styling for testing*/}
         <div style={{display: 'flex', justifyContent: 'space-evenly', gap: '50px'}}>
@@ -71,15 +81,26 @@ function App() {
           <p style={{width: '600px', height: '200px', backgroundColor: 'Black'}}>Desc about me here</p>
         </div>
       </section>   
-      <section ref={projectRef}>
+      <section id='project' ref={projectRef}>
         <h1>Projects</h1>
         <div className='section-content'>
           {projects.map((project) => (
-            <ProjectCard key={project.id} name={project.name} width={expandedProj === project.id ? '1000px' : expandedProj === null ? '300px' : '0px'} height={expandedProj === project.id ? '500px' : '400px'} onClick={() => handleExpand(project.id)}/>
+            <ProjectCard key={project.id} name={project.name} skills={project.skills} width={expandedProj === project.id ? '1000px' : expandedProj === null ? '300px' : '0px'} height={expandedProj === project.id ? '500px' : '400px'} onClick={() => handleExpand(project.id)}/>
           ))}
         </div>
       </section>
-      <section ref={expRef}>
+      <section>
+        <h1>Project v2</h1>
+        <div className='project-window'>
+          <h2>{activeProj.name}</h2>
+          <div className='project-select'>
+            {projects.map((project) => (
+              <div key={project.id} className={`project-button ${activeButton === project.id ? 'expanded' : ''}`}  onClick={() => setActiveButton(project.id)}></div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id='exp' ref={expRef}>
         <h1>Experience</h1>
         <div className='experience-card'>
           <h2>Apple Support College Program Advisor</h2>
@@ -87,15 +108,14 @@ function App() {
             <p>Apple</p>
             <p>May 2025 - Present</p>
           </div>
-          <p>Job Description</p>
-          <div className="project-skills">
-            <div className="skill">Skill</div>
-            <div className="skill">Skill</div>
-            <div className="skill">Skill</div>
-          </div>
+          <ul>
+            <li>Providing technical support over the phone for a wide range of Apple products and services</li>
+            <li>Ensuring courteous and efficient resolution over more than a thousand customer calls</li>
+            <li>Refining problem solving skills with regard to a variety of technical issues</li>
+          </ul>
         </div>
       </section>
-      <section ref={eduRef}>
+      <section id='edu' ref={eduRef}>
         <h1>Education</h1>
         <div className='experience-card'>
           <h2>B.S. Computer Science</h2>
@@ -103,14 +123,14 @@ function App() {
             <p>The University of Texas at Austin</p>
             <p>Aug 2024 - May 2028</p>
           </div>
-          <p>Courses</p>
+          <p>Relevant Coursework</p>
           <p>Organizations</p>
         </div>
       </section>
-      <section ref={skillRef}>
+      <section id='skill' ref={skillRef}>
         <h1>Skills & Certifications</h1>
       </section>
-      <section ref={contactRef}>
+      <section id='contact' ref={contactRef}>
         <h1>Contact</h1>
         <a href="mailto:mattjohnson0@hotmail.com">Email</a>
         <a href="https://www.linkedin.com/in/mj315/" target="_blank">Linkedin</a>
