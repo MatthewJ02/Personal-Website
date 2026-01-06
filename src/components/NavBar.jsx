@@ -1,13 +1,13 @@
 function NavBar({name, scrollRefs, activeSection }) {
     console.log(`Button about is active: ${activeSection === 'about'}`);
     const styleHelper = (id) => ({
-        backgroundColor: activeSection === id ? 'white' : '#1a1a1a',
+        backgroundColor: activeSection === id ? 'white' : '#151515',
         color: activeSection === id ? 'black' : 'white',
         transition: 'all 0.3s ease'
     });
 
     return (
-        <nav style={{left: '0', display: 'flex', width: '100%', justifyContent: 'space-evenly', position: 'fixed', top: '0', backgroundColor: 'Black', zIndex:'1000', alignItems: 'center'}}>
+        <nav style={{left: '0', display: 'flex', width: '100%', justifyContent: 'space-evenly', position: 'fixed', top: '0', backgroundColor: '#090909', zIndex:'1000', alignItems: 'center'}}>
             <p>
                 {name}
             </p>

@@ -52,21 +52,23 @@ function App() {
     };
   }, []);
 
-  const [expandedProj, setExpandedProj] = useState(null);
-  
-  const handleExpand = (id) => {
-    setExpandedProj(expandedProj === id ? null : id);
-  }
-
   const projects = [
-    {id: 1, name: 'Airplane Passenger Satisfaction Model', skills: ['Python', 'PyTorch', 'SageMaker', 'Jupyter']},
-    {id: 2, name: 'F1 Driver Database', skills: ['HTML', 'CSS', 'JavaScript', 'React', 'SQL', 'Node.js', 'Express.js']},
-    {id: 3, name: 'Portfolio Website', skills: ['HTML', 'CSS', 'JavaScript', 'React']}
+    {id: 1, name: 'Airplane Passenger Satisfaction Model', skills: ['Python', 'PyTorch', 'SageMaker', 'Jupyter'], link: 'https://github.com/MatthewJ02/Airplane-Passenger-Satisfaction-Model'},
+    {id: 2, name: 'F1 Driver Database', skills: ['HTML', 'CSS', 'JavaScript', 'React', 'SQL', 'Node.js', 'Express.js'], link: 'https://github.com/MatthewJ02/F1-Database'},
+    {id: 3, name: 'Portfolio Website', skills: ['HTML', 'CSS', 'JavaScript', 'React'], link: 'https://github.com/MatthewJ02/Personal-Website'}
   ]
 
   //project v2 state
   const [activeButton, setActiveButton] = useState(1);
   const activeProj = projects.find(project => project.id === activeButton);
+
+  const openSourceCode = () => {
+    window.open(activeProj.link, '_blank', 'noopener,noreferrer');
+  }
+
+  const openLink = (project) => {
+    window.open(project.link, '_blank', 'noopener,noreferrer');
+  }
 
   return (
     <>
@@ -85,7 +87,7 @@ function App() {
         <h1>Projects</h1>
         <div className='section-content'>
           {projects.map((project) => (
-            <ProjectCard key={project.id} name={project.name} skills={project.skills} width={expandedProj === project.id ? '1000px' : expandedProj === null ? '300px' : '0px'} height={expandedProj === project.id ? '500px' : '400px'} onClick={() => handleExpand(project.id)}/>
+            <ProjectCard key={project.id} name={project.name} skills={project.skills} width={'300px'} height={'400px'} onClick={() => openLink(project)}/>
           ))}
         </div>
       </section>
@@ -93,10 +95,13 @@ function App() {
         <h1>Project v2</h1>
         <div className='project-window'>
           <h2>{activeProj.name}</h2>
-          <div className='project-select'>
-            {projects.map((project) => (
-              <div key={project.id} className={`project-button ${activeButton === project.id ? 'expanded' : ''}`}  onClick={() => setActiveButton(project.id)}></div>
-            ))}
+          <div className='project-bottom'>
+            <div className='project-select'>
+              {projects.map((project) => (
+                <div key={project.id} className={`project-button ${activeButton === project.id ? 'expanded' : ''}`} onClick={() => setActiveButton(project.id)}></div>
+              ))}
+            </div>
+            <div className='project-code' onClick={openSourceCode}>View Source Code</div>
           </div>
         </div>
       </section>

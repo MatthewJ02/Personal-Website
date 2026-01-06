@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #151515;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -69,6 +69,17 @@ section {
   min-height: 100vh;
 }
 
+h2 {
+  text-wrap: wrap;
+}
+
+p {
+  text-wrap: wrap;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: left;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -103,19 +114,45 @@ html {
   background-color: #0c0c0c;
   border-radius: 20px;
   position: relative;
-
   box-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
-.project-select {
+.project-bottom {
+  width: 100%;
+  border-radius: 20px;
   bottom: 0px;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-select {
   border-radius: 20px;
   height: 40px;
-  position: absolute;
-  width: 170px;
+  width: 180px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.project-code {
+  background-color: white;
+  border-radius: 20px;
+  height: 30px;
+  width: 160px;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+  line-height: 30px;
+  color: black;
+  cursor: pointer;
+  user-select: none;
+}
+
+.project-code:hover {
+  background-color: #0b2f4e;
+  color: white;
 }
 
 .project-button {
@@ -138,15 +175,16 @@ html {
 .project-card {
   /*width: 300px;*/
   /*height: 400px;*/
-  background-color: #0c0c0c;
+  background-color: #090909;
   border-radius: 20px;
   position: relative;
+  cursor: pointer;
 
   box-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
 .project-card:hover {
-  background-color: #0b2f4e;
+  background-color: #072949;
   border-width: 5px;
   /*outline: 4px auto -webkit-focus-ring-color;*/
   transform: translateY(-10px);
@@ -157,19 +195,18 @@ html {
   display: flex;
   position: absolute;
   bottom: 5px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .skill {
   border-radius: 10px;
-  background-color: #242424;
+  background-color: #151515;
   padding: 0px 10px;
   margin: 5px;
 }
 
 .section-content {
   display: flex;
-  justify-content: flex-start;
   gap: 50px;
 }
 
