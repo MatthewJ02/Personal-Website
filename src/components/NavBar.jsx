@@ -1,4 +1,4 @@
-function NavBar({name, scrollRefs, activeSection }) {
+function NavBar({name, scrollRefs, activeSection}) {
     console.log(`Button about is active: ${activeSection === 'about'}`);
     const styleHelper = (id) => ({
         backgroundColor: activeSection === id ? 'white' : '#151515',
@@ -11,6 +11,7 @@ function NavBar({name, scrollRefs, activeSection }) {
             <p>
                 {name}
             </p>
+            <div style={{width: '25%'}}/>
             <button onClick={() => scrollRefs.about.current?.scrollIntoView()} style={styleHelper('about')}>
                 About
             </button>

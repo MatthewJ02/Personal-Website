@@ -6,6 +6,8 @@ import './App.css'
 import NavBar from './components/NavBar.jsx'
 import ProjectCard from './components/ProjectCard.jsx'
 
+import headshotImage from './assets/headshot.png';
+
 function App() {
 
   const aboutRef = useRef(null);
@@ -53,18 +55,18 @@ function App() {
   }, []);
 
   const projects = [
-    {id: 1, name: 'Airplane Passenger Satisfaction Model', skills: ['Python', 'PyTorch', 'SageMaker', 'Jupyter'], link: 'https://github.com/MatthewJ02/Airplane-Passenger-Satisfaction-Model'},
-    {id: 2, name: 'F1 Driver Database', skills: ['HTML', 'CSS', 'JavaScript', 'React', 'SQL', 'Node.js', 'Express.js'], link: 'https://github.com/MatthewJ02/F1-Database'},
-    {id: 3, name: 'Portfolio Website', skills: ['HTML', 'CSS', 'JavaScript', 'React'], link: 'https://github.com/MatthewJ02/Personal-Website'}
+    {id: 1, name: 'Airplane Passenger Satisfaction Model', skills: ['Python', 'PyTorch', 'SageMaker', 'Jupyter'], link: 'https://github.com/MatthewJ02/Airplane-Passenger-Satisfaction-Model', desc: 'Multilayer perceptron which classifies passengers as either satisfied or dissatisfied. Handles data preprocessing as well as training and deployment of the machine learning model. Model deployed with 92% accuracy in classifying test data.'},
+    {id: 2, name: 'F1 Driver Database', skills: ['HTML', 'CSS', 'JavaScript', 'React', 'SQL', 'Node.js', 'Express.js'], link: 'https://github.com/MatthewJ02/F1-Database', desc: 'Allows users to query a database of Formula 1 statistics. Displays data in various formats according to user input.'},
+    {id: 3, name: 'Portfolio Website', skills: ['HTML', 'CSS', 'JavaScript', 'React'], link: 'https://github.com/MatthewJ02/Personal-Website', desc: 'TBD'}
   ]
 
   //project v2 state
-  const [activeButton, setActiveButton] = useState(1);
+ /* const [activeButton, setActiveButton] = useState(1);
   const activeProj = projects.find(project => project.id === activeButton);
 
   const openSourceCode = () => {
     window.open(activeProj.link, '_blank', 'noopener,noreferrer');
-  }
+  }*/
 
   const openLink = (project) => {
     window.open(project.link, '_blank', 'noopener,noreferrer');
@@ -78,20 +80,23 @@ function App() {
       <section id='about' ref={aboutRef}>
         <h1>About</h1>
         {/* Temp styling for testing*/}
-        <div style={{display: 'flex', justifyContent: 'space-evenly', gap: '50px'}}>
-          <p style={{width: '200px', height: '200px', backgroundColor: 'Black'}}>Add picture</p>
-          <p style={{width: '600px', height: '200px', backgroundColor: 'Black'}}>Desc about me here</p>
+        <div className='about-card'>
+          <div className='about-desc'>
+            <h2>Matthew Johnson</h2>
+            <p>A bunch of text about who I am and what my aspirations are and so on will go here.</p>
+          </div>
+          <img className='headshot' alt='My beautiful face' src={headshotImage}></img>
         </div>
       </section>   
       <section id='project' ref={projectRef}>
         <h1>Projects</h1>
         <div className='section-content'>
           {projects.map((project) => (
-            <ProjectCard key={project.id} name={project.name} skills={project.skills} width={'300px'} height={'400px'} onClick={() => openLink(project)}/>
+            <ProjectCard key={project.id} name={project.name} skills={project.skills} width={'300px'} height={'400px'} onClick={() => openLink(project)} desc={project.desc}/>
           ))}
         </div>
       </section>
-      <section>
+      {/*<section>
         <h1>Project v2</h1>
         <div className='project-window'>
           <h2>{activeProj.name}</h2>
@@ -104,14 +109,14 @@ function App() {
             <div className='project-code' onClick={openSourceCode}>View Source Code</div>
           </div>
         </div>
-      </section>
+      </section>*/}
       <section id='exp' ref={expRef}>
         <h1>Experience</h1>
         <div className='experience-card'>
           <h2>Apple Support College Program Advisor</h2>
           <div className='experience-line'> 
-            <p>Apple</p>
-            <p>May 2025 - Present</p>
+            <p style={{fontWeight: '400'}}>Apple</p>
+            <p style={{fontWeight: '400'}}>May 2025 - Present</p>
           </div>
           <ul>
             <li>Providing technical support over the phone for a wide range of Apple products and services</li>
@@ -125,11 +130,13 @@ function App() {
         <div className='experience-card'>
           <h2>B.S. Computer Science</h2>
           <div className='experience-line'> 
-            <p>The University of Texas at Austin</p>
-            <p>Aug 2024 - May 2028</p>
+            <p style={{fontWeight: '400'}}>The University of Texas at Austin</p>
+            <p style={{fontWeight: '400'}}>Aug 2024 - May 2028</p>
           </div>
-          <p>Relevant Coursework</p>
-          <p>Organizations</p>
+          <ul>
+            <li>Relevant Coursework</li>
+            <li>Organizations</li>
+          </ul>
         </div>
       </section>
       <section id='skill' ref={skillRef}>
